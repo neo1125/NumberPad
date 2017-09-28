@@ -3,9 +3,9 @@ Pod::Spec.new do |s|
   s.version               = "0.0.1"
   s.summary               = "NumberPad UI"
   s.homepage              = "https://github.com/neo1125/NumberPad"
-  s.screenshots           = "https://github.com/neo1125/NumberPad/images/01.png", 
-                            "https://github.com/neo1125/NumberPad/images/02.png",
-                            "https://github.com/neo1125/NumberPad/images/03.png"
+  s.screenshots           = "https://github.com/neo1125/NumberPad/blob/master/images/01.png?raw=true", 
+                            "https://github.com/neo1125/NumberPad/blob/master/images/02.png?raw=true",
+                            "https://github.com/neo1125/NumberPad/blob/master/images/03.png?raw=true"
   s.license               = { :type => "MIT", :file => "LICENSE" }
   s.author                = { "HunHee Yoon" => "yhh1125@gmail.com" }
   s.ios.deployment_target = "9.0"
