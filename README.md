@@ -7,7 +7,7 @@
 
 ## Example
 
-![](/images/01.png) ![](/images/02.gif) ![](/images/03.gif)
+![](/images/01.png) ![](/images/02.png) ![](/images/03.png)
 
 ## Requirements
 - iOS 9.0+
