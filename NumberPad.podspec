@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = "NumberPad"
-  s.version               = "0.0.1"
+  s.version               = "0.0.2"
   s.summary               = "NumberPad UI"
   s.homepage              = "https://github.com/neo1125/NumberPad"
   s.screenshots           = "https://github.com/neo1125/NumberPad/blob/master/images/01.png?raw=true", 
