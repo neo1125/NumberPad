@@ -114,14 +114,35 @@ public protocol NumberPadDelegate {
     }
     
     private func updateKeys() {
-        for button in keys {
-            
+        
+        var leftKey: NumberKey = .empty
+        var rightKey: NumberKey = .clear
+        
+        for (index, button) in keys.enumerated() {
             if style == .circle && button.bounds.width != button.bounds.height {
                 let frame = button.frame
                 if button.bounds.width > button.bounds.height {
                     button.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.height, height: frame.size.height)
                 } else {
                     button.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: frame.size.width)
+                }
+            }
+            
+            if clearKeyPosition == .left {
+                if index == 9 {
+                    button.key = .clear
+                }
+                
+                if index == 11 {
+                    button.key = .empty
+                }
+            } else {
+                if index == 9 {
+                    button.key = .empty
+                }
+                
+                if index == 11 {
+                    button.key = .clear
                 }
             }
             
