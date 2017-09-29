@@ -60,6 +60,26 @@ public protocol NumberPadDelegate {
         didSet { updateKeys() }
     }
     
+    open var customKeyText: String? = nil {
+        didSet { updateKeys() }
+    }
+    
+    open var customKeyImgae: UIImage? = nil {
+        didSet { updateKeys() }
+    }
+    
+    open var customKeyTitleColor: UIColor? = nil {
+        didSet { updateKeys() }
+    }
+    
+    open var customKeyBackgroundColor: UIColor? = nil {
+        didSet { updateKeys() }
+    }
+    
+    open var customKeyHighlightColor: UIColor? = nil {
+        didSet { updateKeys() }
+    }
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -129,15 +149,13 @@ public protocol NumberPadDelegate {
                 if index == 9 {
                     button.key = .clear
                 }
-                
                 if index == 11 {
-                    button.key = .empty
+                    button.key = (customKeyText != nil || customKeyImgae != nil) ? .custom : .empty
                 }
             } else {
                 if index == 9 {
-                    button.key = .empty
+                    button.key = (customKeyText != nil || customKeyImgae != nil) ? .custom : .empty
                 }
-                
                 if index == 11 {
                     button.key = .clear
                 }
@@ -156,6 +174,14 @@ public protocol NumberPadDelegate {
                 button.setIcon(image: clearKeyIcon, color: clearKeyTintColor)
                 button.setBackgroundColor(color: clearKeyBackgroundColor, forState: .normal)
                 button.setBackgroundColor(color: clearKeyHighlightColor, forState: .highlighted)
+            }
+            
+            if button.key == .custom {
+                button.setIcon(image: customKeyImgae, color: clearKeyTintColor)
+                button.setTitle(customKeyText, for: .normal)
+                button.setBackgroundColor(color: customKeyBackgroundColor ?? keyBackgroundColor, forState: .normal)
+                button.setBackgroundColor(color: customKeyHighlightColor ?? keyHighlightColor, forState: .highlighted)
+                button.setTitleColor(customKeyTitleColor ?? keyTitleColor, for: .normal)
             }
         }
     }
