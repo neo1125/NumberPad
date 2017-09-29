@@ -1,5 +1,25 @@
+
+
 # NumberPad
 
-<p align="center">
-  <img alt="Swift" src="https://img.shields.io/badge/Swift-3.1-orange.svg">
-</p
+[![Language](https://img.shields.io/badge/language-Swift-orange.svg?style=flat)]()
+[![Platform](https://img.shields.io/cocoapods/p/HGCircularSlider.svg?style=flat)](https://github.com/neo1125/NumberPad)
+
+## Example
+
+![](/images/01.png) ![](/images/02.gif) ![](/images/03.gif)
+
+## Requirements
+- iOS 9.0+
+- Xcode 8.0
+
+## Installation
+``` ruby
+pod 'NumberPad'
+```
+
+## Usage
+```
+let numberPad = NumberPad(frame: self.view.frame)
+self.view.addSubview(numberPad)
+```
