@@ -38,6 +38,9 @@ class NumberKeyButton: UIButton {
         titleEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
         contentHorizontalAlignment = .center
         titleLabel?.textAlignment = .center
+        if keyType == .empty {
+            setIcon(image: nil)
+        }
     }
     
     func setBackgroundColor(color: UIColor, forState: UIControlState) {
@@ -70,11 +73,8 @@ class NumberKeyButton: UIButton {
     }
     
     func setIcon(image: UIImage?, color: UIColor?) {
-        guard let icon = image else {
-            return
-        }
-        setImage(icon, for: .normal)
-        setImage(icon, for: .highlighted)
+        setImage(image, for: .normal)
+        setImage(image, for: .highlighted)
         tintColor = color
         originHightlightColor = backgroundColors[UIControlState.highlighted.rawValue]
         originTintColor = tintColor

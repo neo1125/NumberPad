@@ -8,6 +8,7 @@ class BasicNumberPadViewController: UIViewController {
         super.viewDidLoad()
         let numberPad = NumberPad(frame: CGRect(x: 0, y: 150, width: self.view.bounds.width, height: self.view.bounds.height - 150))
         numberPad.delegate = self
+        numberPad.clearKeyPosition = .left
         self.view.addSubview(numberPad)
     }
 }
