@@ -10,6 +10,7 @@ class BasicNumberPadViewController: UIViewController {
         pad.clearKeyPosition = .left
         pad.customKeyText = "입력"
         pad.customKeyTitleColor = UIColor.white
+        pad.style = .circle
         pad.backgroundColor = .red
         if #available(iOS 11.0, *) {
             pad.customKeyBackgroundColor = UIColor(named: "CustomKeyBackground")

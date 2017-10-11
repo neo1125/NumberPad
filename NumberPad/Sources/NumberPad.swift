@@ -138,13 +138,21 @@ public protocol NumberPadDelegate {
     }
     
     private func updateKeys() {
+        var row: Int = 0
+        var col: Int = 0
+        let width: CGFloat = bounds.width / CGFloat(cols)
+        let height: CGFloat = bounds.height / CGFloat(rows)
+        
         for (index, button) in keys.enumerated() {
-            if style == .circle && button.bounds.width != button.bounds.height {
-                let frame = button.frame
-                if button.bounds.width > button.bounds.height {
-                    button.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.height, height: frame.size.height)
+            if button.bounds.width != width || button.bounds.height != height {
+                if style == .circle && width != height {
+                    if width > height {
+                        button.frame = CGRect(x: CGFloat(col) * width, y: CGFloat(row) * height, width: height, height: height)
+                    } else {
+                        button.frame = CGRect(x: CGFloat(col) * width, y: CGFloat(row) * height, width: width, height: width)
+                    }
                 } else {
-                    button.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: frame.size.width)
+                    button.frame = CGRect(x: CGFloat(col) * width, y: CGFloat(row) * height, width: width, height: height)
                 }
             }
             
@@ -190,6 +198,12 @@ public protocol NumberPadDelegate {
                 button.setBackgroundColor(color: customKeyBackgroundColor ?? keyBackgroundColor, forState: .normal)
                 button.setBackgroundColor(color: customKeyHighlightColor ?? keyHighlightColor, forState: .highlighted)
                 button.setTitleColor(customKeyTitleColor ?? keyTitleColor, for: .normal)
+            }
+            
+            col += 1
+            if col >= cols {
+                row += 1
+                col = 0
             }
         }
     }
