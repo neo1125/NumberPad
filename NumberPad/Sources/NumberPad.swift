@@ -44,7 +44,7 @@ public protocol NumberPadDelegate {
         didSet { updateKeys() }
     }
     
-    open var clearKeyIcon: UIImage? = UIImage(named: "ic_backspace") {
+    open var clearKeyIcon: UIImage? = UIImage(named: "ic_backspace", in: Bundle.myBundle(), compatibleWith: nil) {
         didSet { updateKeys() }
     }
     
@@ -206,5 +206,12 @@ public protocol NumberPadDelegate {
                 col = 0
             }
         }
+    }
+}
+
+extension Bundle {
+    static func myBundle() -> Bundle {
+        let bundle = Bundle(for: NumberPad.self)
+        return bundle
     }
 }
