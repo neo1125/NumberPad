@@ -56,6 +56,10 @@ public protocol NumberPadDelegate {
         didSet { updateKeys() }
     }
     
+    open var emptyKeyBackgroundColor: UIColor = defaultBackgroundColor {
+        didSet { updateKeys() }
+    }
+    
     open var clearKeyTintColor: UIColor = .white {
         didSet { updateKeys() }
     }
@@ -174,6 +178,11 @@ public protocol NumberPadDelegate {
                 button.setIcon(image: clearKeyIcon, color: clearKeyTintColor)
                 button.setBackgroundColor(color: clearKeyBackgroundColor, forState: .normal)
                 button.setBackgroundColor(color: clearKeyHighlightColor, forState: .highlighted)
+            }
+            
+            if button.key == .empty {
+                button.setBackgroundColor(color: emptyKeyBackgroundColor, forState: .normal)
+                button.setBackgroundColor(color: emptyKeyBackgroundColor, forState: .highlighted)
             }
             
             if button.key == .custom {
