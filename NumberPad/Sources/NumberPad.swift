@@ -138,7 +138,6 @@ public protocol NumberPadDelegate {
     }
     
     private func updateKeys() {
-        
         for (index, button) in keys.enumerated() {
             if style == .circle && button.bounds.width != button.bounds.height {
                 let frame = button.frame

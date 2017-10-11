@@ -4,21 +4,30 @@ class BasicNumberPadViewController: UIViewController {
     
     @IBOutlet var textfield: UITextField!
     
+    private lazy var numberPad: NumberPad = {
+        let pad = NumberPad()
+        pad.delegate = self
+        pad.clearKeyPosition = .left
+        pad.customKeyText = "입력"
+        pad.customKeyTitleColor = UIColor.white
+        pad.backgroundColor = .red
+        if #available(iOS 11.0, *) {
+            pad.customKeyBackgroundColor = UIColor(named: "CustomKeyBackground")
+            pad.customKeyHighlightColor = UIColor(named: "CustomKeyHighlight")
+        } else {
+            pad.customKeyBackgroundColor = UIColor(red: 0.203, green: 0.594, blue: 0.859, alpha: 1)
+            pad.customKeyHighlightColor = UIColor(red: 0.214, green: 0.651, blue: 0.941, alpha: 1)
+        }
+        return pad
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let numberPad = NumberPad(frame: CGRect(x: 0, y: 150, width: self.view.bounds.width, height: self.view.bounds.height - 150))
-        numberPad.delegate = self
-        numberPad.clearKeyPosition = .left
-        numberPad.customKeyText = "입력"
-        numberPad.customKeyTitleColor = UIColor.white
-        if #available(iOS 11.0, *) {
-            numberPad.customKeyBackgroundColor = UIColor(named: "CustomKeyBackground")
-            numberPad.customKeyHighlightColor = UIColor(named: "CustomKeyHighlight")
-        } else {
-            numberPad.customKeyBackgroundColor = UIColor(red: 0.203, green: 0.594, blue: 0.859, alpha: 1)
-            numberPad.customKeyHighlightColor = UIColor(red: 0.214, green: 0.651, blue: 0.941, alpha: 1)
-        }
-        self.view.addSubview(numberPad)
+        
+        view.addSubview(numberPad)
+        
+        view.addConstraints(withFormat: "H:|[v0]|", views: numberPad)
+        view.addConstraints(withFormat: "V:|-200-[v0]|", views: numberPad)
     }
 }
 
