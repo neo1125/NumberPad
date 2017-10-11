@@ -14,7 +14,7 @@
 		B57183FF1F7CC2CF00B4E3C1 /* NumberPad.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B57183FE1F7CC2CF00B4E3C1 /* NumberPad.xcassets */; };
 		B57184011F7CC4F300B4E3C1 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57184001F7CC4F300B4E3C1 /* ExampleViewController.swift */; };
 		B5FE35A71F7CCC2400A86213 /* BasicNumberPadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FE35A61F7CCC2400A86213 /* BasicNumberPadViewController.swift */; };
-		B5FE35A91F7CCDF800A86213 /* Extention+Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FE35A81F7CCDF800A86213 /* Extention+Storyboard.swift */; };
+		B5FE35A91F7CCDF800A86213 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FE35A81F7CCDF800A86213 /* Extentions.swift */; };
 		B5FE35AB1F7CDA3100A86213 /* CircleNumberPadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FE35AA1F7CDA3100A86213 /* CircleNumberPadViewController.swift */; };
 		B5FE35AD1F7CDC0800A86213 /* StoryboardNumberPadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FE35AC1F7CDC0800A86213 /* StoryboardNumberPadViewController.swift */; };
 		B5FE35B21F7CE46900A86213 /* NumberKeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FE35AF1F7CE46900A86213 /* NumberKeyButton.swift */; };
@@ -32,7 +32,7 @@
 		B57183FE1F7CC2CF00B4E3C1 /* NumberPad.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = NumberPad.xcassets; sourceTree = "<group>"; };
 		B57184001F7CC4F300B4E3C1 /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 		B5FE35A61F7CCC2400A86213 /* BasicNumberPadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicNumberPadViewController.swift; sourceTree = "<group>"; };
-		B5FE35A81F7CCDF800A86213 /* Extention+Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extention+Storyboard.swift"; sourceTree = "<group>"; };
+		B5FE35A81F7CCDF800A86213 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		B5FE35AA1F7CDA3100A86213 /* CircleNumberPadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleNumberPadViewController.swift; sourceTree = "<group>"; };
 		B5FE35AC1F7CDC0800A86213 /* StoryboardNumberPadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardNumberPadViewController.swift; sourceTree = "<group>"; };
 		B5FE35AF1F7CE46900A86213 /* NumberKeyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberKeyButton.swift; sourceTree = "<group>"; };
@@ -70,18 +70,18 @@
 		B50ADF541F7B6CE000C154B7 /* NumberPad */ = {
 			isa = PBXGroup;
 			children = (
+				B50ADF611F7B6CE000C154B7 /* Info.plist */,
 				B50ADF551F7B6CE000C154B7 /* AppDelegate.swift */,
-				B50ADF5C1F7B6CE000C154B7 /* Assets.xcassets */,
 				B5FE35A61F7CCC2400A86213 /* BasicNumberPadViewController.swift */,
 				B5FE35AA1F7CDA3100A86213 /* CircleNumberPadViewController.swift */,
 				B57184001F7CC4F300B4E3C1 /* ExampleViewController.swift */,
-				B5FE35A81F7CCDF800A86213 /* Extention+Storyboard.swift */,
-				B50ADF611F7B6CE000C154B7 /* Info.plist */,
+				B5FE35A81F7CCDF800A86213 /* Extentions.swift */,
+				B5FE35AC1F7CDC0800A86213 /* StoryboardNumberPadViewController.swift */,
+				B50ADF5C1F7B6CE000C154B7 /* Assets.xcassets */,
 				B50ADF5E1F7B6CE000C154B7 /* LaunchScreen.storyboard */,
 				B50ADF591F7B6CE000C154B7 /* Main.storyboard */,
 				B57183FD1F7CC2CF00B4E3C1 /* Resources */,
 				B5FE35AE1F7CE46900A86213 /* Sources */,
-				B5FE35AC1F7CDC0800A86213 /* StoryboardNumberPadViewController.swift */,
 			);
 			path = NumberPad;
 			sourceTree = "<group>";
@@ -180,7 +180,7 @@
 				B5FE35B31F7CE46900A86213 /* NumberPad.swift in Sources */,
 				B57184011F7CC4F300B4E3C1 /* ExampleViewController.swift in Sources */,
 				B5FE35B41F7CE46900A86213 /* NumberPadType.swift in Sources */,
-				B5FE35A91F7CCDF800A86213 /* Extention+Storyboard.swift in Sources */,
+				B5FE35A91F7CCDF800A86213 /* Extentions.swift in Sources */,
 				B5FE35AB1F7CDA3100A86213 /* CircleNumberPadViewController.swift in Sources */,
 				B5FE35A71F7CCC2400A86213 /* BasicNumberPadViewController.swift in Sources */,
 				B5FE35B21F7CE46900A86213 /* NumberKeyButton.swift in Sources */,
