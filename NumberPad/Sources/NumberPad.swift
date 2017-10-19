@@ -1,4 +1,5 @@
 import UIKit
+import CoreGraphics
 
 public protocol NumberPadDelegate {
     func keyPressed(key: NumberKey?)
@@ -7,6 +8,7 @@ public protocol NumberPadDelegate {
 @IBDesignable open class NumberPad: UIView {
 
     open var delegate: NumberPadDelegate?
+    private var longRunTimer: Timer?
    
     @IBInspectable open var keyBackgroundColor: UIColor = defaultBackgroundColor {
         didSet { updateKeys() }
@@ -84,6 +86,14 @@ public protocol NumberPadDelegate {
         didSet { updateKeys() }
     }
     
+    open var customKeyBorderWidth: CGFloat = 0 {
+        didSet { updateKeys() }
+    }
+    
+    open var customKeyBorderColor: UIColor? = nil {
+        didSet { updateKeys() }
+    }
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -96,11 +106,36 @@ public protocol NumberPadDelegate {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
+        print("########### layoutSubviews ")
         updateKeys()
     }
     
     @objc func keyEvent(sender: NumberKeyButton) {
         delegate?.keyPressed(key: sender.key)
+    }
+    
+    @objc func longPressed(sender: UILongPressGestureRecognizer) {
+        if let button = sender.view as? NumberKeyButton {
+            switch sender.state {
+            case .began:
+                button.isHighlighted = true
+                longRunTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(runLongPressed(sender:)), userInfo: button, repeats: true)
+            case .ended:
+                button.isHighlighted = false
+                if longRunTimer != nil {
+                    longRunTimer?.invalidate()
+                    longRunTimer = nil
+                }
+                
+            default: break
+            }
+        }
+    }
+    
+    @objc func runLongPressed(sender: Timer) {
+        if let button = sender.userInfo as? NumberKeyButton {
+            delegate?.keyPressed(key: button.key)
+        }
     }
     
     private static let defaultBackgroundColor: UIColor = UIColor(white: 0, alpha: 0.6)
@@ -119,6 +154,7 @@ public protocol NumberPadDelegate {
                 let keyButton = NumberKeyButton(type: .custom)
                 keyButton.frame = CGRect(x: CGFloat(j-1) * width, y: CGFloat(i-1) * height, width: width, height: height)
                 keyButton.addTarget(self, action: #selector(keyEvent(sender:)), for: .touchUpInside)
+                keyButton.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:))))
                 switch keyNumber {
                 case 10:
                     keyButton.key = .empty
@@ -144,17 +180,6 @@ public protocol NumberPadDelegate {
         let height: CGFloat = bounds.height / CGFloat(rows)
         
         for (index, button) in keys.enumerated() {
-            if button.bounds.width != width || button.bounds.height != height {
-                if style == .circle && width != height {
-                    if width > height {
-                        button.frame = CGRect(x: CGFloat(col) * width, y: CGFloat(row) * height, width: height, height: height)
-                    } else {
-                        button.frame = CGRect(x: CGFloat(col) * width, y: CGFloat(row) * height, width: width, height: width)
-                    }
-                } else {
-                    button.frame = CGRect(x: CGFloat(col) * width, y: CGFloat(row) * height, width: width, height: height)
-                }
-            }
             
             if clearKeyPosition == .left {
                 if index == 9 {
@@ -172,32 +197,51 @@ public protocol NumberPadDelegate {
                 }
             }
             
+            if button.bounds.width != width || button.bounds.height != height {
+                if style == .circle && width != height {
+                    if width > height {
+                        button.frame = CGRect(x: CGFloat(col) * width, y: CGFloat(row) * height, width: height, height: height)
+                    } else {
+                        button.frame = CGRect(x: CGFloat(col) * width, y: CGFloat(row) * height, width: width, height: width)
+                    }
+                } else {
+                    var offset: CGFloat = (keyBorderWidth > 0) ? keyBorderWidth/2 : 0
+                    offset = (button.key == .custom) ? 0 : offset
+                    button.frame = CGRect(x: CGFloat(col) * width, y: CGFloat(row) * height, width: width + offset, height: height + offset)
+                }
+            }
+            
             button.layer.cornerRadius = style == .square ? 0 : button.bounds.height / 2
             button.setScale(scale: keyScale)
             button.setBackgroundColor(color: keyBackgroundColor, forState: .normal)
             button.setBackgroundColor(color: keyHighlightColor, forState: .highlighted)
             button.setTitleColor(keyTitleColor, for: .normal)
             button.titleLabel?.font = keyFont
-            button.layer.borderWidth = keyBorderWidth
-            button.layer.borderColor = keyBorderColor.cgColor
+            button.clipsToBounds = true
             
-            if button.key == .clear {
+            switch button.key {
+            case .some(.clear):
                 button.setIcon(image: clearKeyIcon, color: clearKeyTintColor)
                 button.setBackgroundColor(color: clearKeyBackgroundColor, forState: .normal)
                 button.setBackgroundColor(color: clearKeyHighlightColor, forState: .highlighted)
-            }
-            
-            if button.key == .empty {
+                button.layer.borderWidth = keyBorderWidth
+                button.layer.borderColor = keyBorderColor.cgColor
+            case .some(.empty):
                 button.setBackgroundColor(color: emptyKeyBackgroundColor, forState: .normal)
                 button.setBackgroundColor(color: emptyKeyBackgroundColor, forState: .highlighted)
-            }
-            
-            if button.key == .custom {
+                button.layer.borderWidth = keyBorderWidth
+                button.layer.borderColor = keyBorderColor.cgColor
+            case .some(.custom):
                 button.setIcon(image: customKeyImgae, color: clearKeyTintColor)
                 button.setTitle(customKeyText, for: .normal)
                 button.setBackgroundColor(color: customKeyBackgroundColor ?? keyBackgroundColor, forState: .normal)
                 button.setBackgroundColor(color: customKeyHighlightColor ?? keyHighlightColor, forState: .highlighted)
                 button.setTitleColor(customKeyTitleColor ?? keyTitleColor, for: .normal)
+                button.layer.borderWidth = customKeyBorderWidth
+                button.layer.borderColor = customKeyBorderColor?.cgColor
+            default:
+                button.layer.borderWidth = keyBorderWidth
+                button.layer.borderColor = keyBorderColor.cgColor
             }
             
             col += 1

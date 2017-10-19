@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 class NumberKeyButton: UIButton {
-    let animationDuration: TimeInterval = 0.3
+    let animationDuration: TimeInterval = 0.2
     var key: NumberKey?
     private var backgroundColors: [UIControlState.RawValue: UIColor] = [:]
     private var originRect: CGRect = CGRect.zero
@@ -15,15 +15,17 @@ class NumberKeyButton: UIButton {
                 return
             }
             
-            UIView.animate(withDuration: isHighlighted ? 0.0 : animationDuration,
-                           delay: 0,
-                           options: .curveEaseInOut,
-                           animations: {
-                            self.layer.backgroundColor = color.cgColor
-                            if self.key == .clear {
-                                self.tintColor = self.isHighlighted ? self.originHightlightColor : self.originTintColor
-                            }
-            })
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: self.isHighlighted ? 0.0 : self.animationDuration,
+                               delay: 0,
+                               options: .curveEaseInOut,
+                               animations: {
+                                self.layer.backgroundColor = color.cgColor
+                                if self.key == .clear {
+                                    self.tintColor = self.isHighlighted ? self.originHightlightColor : self.originTintColor
+                                }
+                })
+            }
         }
     }
     
@@ -53,10 +55,12 @@ class NumberKeyButton: UIButton {
     }
     
     func setScale(scale: CGFloat) {
+        
+        originRect = frame
         guard scale < 1.0 else {
-            originRect = frame
             return
         }
+        
         let marginWidth: CGFloat = originRect.width - (originRect.width * scale)
         let marginHeight: CGFloat = originRect.height - (originRect.height * scale)
         let x: CGFloat = marginWidth/2
